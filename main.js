@@ -1,59 +1,39 @@
-(function() {
-  // sceneXXXは、各ゲーム画面の要素です
+(function () {
+  // scene
   const sceneTop = document.getElementById("sceneTop");
   const sceneGame = document.getElementById("sceneGame");
   const sceneResult = document.getElementById("sceneResult");
-  // 問題文を表示する要素です
+  // 問題文を表示
   const textQuestion = document.getElementById("textQuestion");
-  // 選択肢を表示する要素です
+  // 選択肢を表示
   const listAnswer = document.getElementById("listAnswer");
-  // 正解数を表示する要素です
+  // 正解数を表示
   const numResult = document.getElementById("numResult");
-  // トップ画面にて、ゲームを開始するボタン要素です
+  // トップ画面でゲームを開始するボタン
   const btnStart = document.getElementById("btnStart");
-  // リザルト画面にて、ゲームをリセットしトップへ戻るボタン要素です
+  // リザルト画面でゲームをリセットしトップへ戻るボタン
   const btnReset = document.getElementById("btnReset");
 
-  //問題文を格納する要素です
+  //問題文を格納
   const question = [
     {
       text: "江戸時代から使われていた言葉はどれ？",
       choice: ["うざい", "むかつく", "えもい", "ばえ"],
       ansewer: "むかつく"
     },
-    {
-      text: "超ド級の「ド」って何？",
-      choice: ["ドイツ軍", "ドレッドノート", "ドラゴン", "ドッグ"],
-      ansewer: "ドレッドノート"
-    },
-    {
-      text: "パンケーキの名前の由来は？",
-      choice: [
-        "パンみたいなケーキだから",
-        "フライパンで調理するケーキだから",
-        "膨らみすぎてパンクしたケーキだから",
-        "パンダが食べたケーキだから"
-      ],
-      ansewer: "フライパンで調理するケーキだから"
-    },
-    {
-      text: "たぬき寝入りを英語で言うと？",
-      choice: ["recoon dog sleep", "sheep sleep", "cat sleep", "fox sleep"],
-      ansewer: "fox sleep"
-    }
   ];
 
-  // ゲームで使用する共通の変数です
-  // answer...プレイヤーの答えと比較する、正解のテキストです
-  // gameCount...プレイヤーが答えた数です
-  // success...プレイヤーが答えて、正解した数です
+  // ゲームで使用する共通の変数
+  // answer...プレイヤーの答えと比較する、正解のテキスト
+  // gameCount...プレイヤーが答えた数
+  // success...正解した数
   let state = {
     answer: "",
     gameCount: 0,
     success: 0
   };
 
-  // ゲームをリセットする関数を書いてみましょう
+  // リセット
   function init() {
     state.gameCount = 0;
     state.success = 0;
@@ -72,7 +52,7 @@
   // 問題と選択肢をViewに表示し、正解を共通の変数へ代入
   function showQuestion() {
     var str = "";
-    question[state.gameCount].choice.forEach(function(value) {
+    question[state.gameCount].choice.forEach(function (value) {
       str += '<li class="questionChoice">' + value + "</li>";
     });
     textQuestion.innerHTML = question[state.gameCount].text;
@@ -81,10 +61,10 @@
 
   function choiceQuestion() {
     let questionChoice = document.querySelectorAll(".questionChoice");
-    questionChoice.forEach(function(choice) {
+    questionChoice.forEach(function (choice) {
       choice.addEventListener(
         "click",
-        function() {
+        function () {
           state.answer = this.textContent;
           checkAnswer(question[state.gameCount].ansewer);
         },
