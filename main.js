@@ -18,7 +18,12 @@
   const question = [
     {
       text: "江戸時代から使われていた言葉はどれ？",
-      choice: ["うざい", "むかつく", "えもい", "ばえ"],
+      choice: [
+        "<img src='pictures/study_gogaku_man1_english.png'>",
+        "<img src='pictures/study_gogaku_man2_spanish.png'>",
+        "<img src='pictures/study_gogaku_man3_french.png'>",
+        "<img src='pictures/study_gogaku_man4_chinese.png'>",
+      ],
       ansewer: "むかつく"
     },
   ];

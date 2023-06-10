@@ -4,6 +4,11 @@ li {
   padding: 0;
 }
 
+img {
+  max-width: 40%;
+  height: auto;
+}
+
 div.is-hidden {
   display: none;
 }
