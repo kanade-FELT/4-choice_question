@@ -27,13 +27,8 @@
   const question = [
     {
       text: "英語の勉強をしているのは誰？",
-      choice: [p1_1, p1_2, p1_3, p1_4],
-      ansewer: '1'
-    },
-    {
-      text: "英語の勉強をしているのは誰？",
-      choice: [p2_1, p2_2, p2_3, p2_4],
-      ansewer: '1'
+      choice: p1,
+      ansewer: 'correct'
     },
   ];
 
@@ -71,9 +66,26 @@
 
     exportData+=question[state.gameCount].text+','; // Add exportData
 
+    const q=[];
+    for(let i=0; i<question[state.gameCount].choice.length; i++){
+      if(i==0){
+        q.push("<img src='" + question[state.gameCount].choice[i] + "'class='questionChoice' id='correct'>");
+      }else{
+        q.push("<img src='" + question[state.gameCount].choice[i] + "'class='questionChoice'>");
+      }
+    }
+    
+    // shuffle q
+    for(let i=q.length-1; i>=0; i--){
+      let rand = Math.floor(Math.random()*(i+1));
+      let tmp = q[i];
+      q[i] = q[rand];
+      q[rand] = tmp;
+    }
+
     var str = "";
-    question[state.gameCount].choice.forEach(function (value) {
-      str += "<img src=" + value + "class='questionChoice'>";
+    q.forEach(function (value) {
+      str += value;
     });
     textQuestion.innerHTML = question[state.gameCount].text;
     listAnswer.innerHTML = str;
