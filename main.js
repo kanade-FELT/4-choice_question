@@ -1,5 +1,5 @@
 (function () {
-  // scene
+  // Scene
   const sceneTop = document.getElementById("sceneTop");
   const sceneGame = document.getElementById("sceneGame");
   const sceneResult = document.getElementById("sceneResult");
@@ -23,14 +23,6 @@
   // Export Data
   var exportData=new Date+"\n";
 
-  //問題文を格納
-  const question = [
-    {
-      text: "英語の勉強をしているのは誰？",
-      choice: p1,
-      ansewer: 'correct'
-    },
-  ];
 
   // ゲームで使用する共通の変数
   // answer...プレイヤーの答えと比較する、正解のテキスト
@@ -106,11 +98,11 @@
   }
 
   // 解答が正解か不正解かをチェック
-  function checkAnswer(answer) {
+  function checkAnswer() {
     // 回答時間出力
     timerStop();
 
-    if (answer === state.answer) {
+    if ('correct' === state.answer) {
       correctAnswer();
     } else {
       incorrectAnswer();
@@ -194,7 +186,6 @@
   }
 
 
-  // スタートボタンが押されたら、ゲームスタートの関数を
-  // リセットボタンが押されたら、ゲーム終了後にゲームをリセットする関数を実行するイベントです
+  // Initialize
   init();
 })();
