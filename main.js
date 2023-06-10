@@ -14,17 +14,22 @@
   // リザルト画面でゲームをリセットしトップへ戻るボタン
   const btnReset = document.getElementById("btnReset");
 
+  const p1_1 = "'pictures/study_gogaku_man1_english.png' id='1'";
+  const p1_2 = "'pictures/study_gogaku_man2_spanish.png'";
+  const p1_3 = "'pictures/study_gogaku_man3_french.png'";
+  const p1_4 = "'pictures/study_gogaku_man4_chinese.png'";
+
   //問題文を格納
   const question = [
     {
       text: "江戸時代から使われていた言葉はどれ？",
       choice: [
-        "<img src='pictures/study_gogaku_man1_english.png'>",
-        "<img src='pictures/study_gogaku_man2_spanish.png'>",
-        "<img src='pictures/study_gogaku_man3_french.png'>",
-        "<img src='pictures/study_gogaku_man4_chinese.png'>",
+        p1_1,
+        p1_2,
+        p1_3,
+        p1_4
       ],
-      ansewer: "むかつく"
+      ansewer: '1'
     },
   ];
 
@@ -58,7 +63,7 @@
   function showQuestion() {
     var str = "";
     question[state.gameCount].choice.forEach(function (value) {
-      str += '<li class="questionChoice">' + value + "</li>";
+      str += "<img src=" + value + "class='questionChoice'>";
     });
     textQuestion.innerHTML = question[state.gameCount].text;
     listAnswer.innerHTML = str;
@@ -70,7 +75,8 @@
       choice.addEventListener(
         "click",
         function () {
-          state.answer = this.textContent;
+          state.answer = this.id;
+          console.log(this);
           checkAnswer(question[state.gameCount].ansewer);
         },
         false
