@@ -20,6 +20,9 @@
   var elapsedTime = 0;
   var holdTime = 0;
 
+  // Export Data
+  var exportData=new Date+"\n";
+
   //問題文を格納
   const question = [
     {
@@ -66,6 +69,8 @@
     // 時間計測開始
     timerStart();
 
+    exportData+=question[state.gameCount].text+','; // Add exportData
+
     var str = "";
     question[state.gameCount].choice.forEach(function (value) {
       str += "<img src=" + value + "class='questionChoice'>";
@@ -81,7 +86,6 @@
         "click",
         function () {
           state.answer = this.id;
-          console.log(this);
           checkAnswer(question[state.gameCount].ansewer);
         },
         false
@@ -112,11 +116,13 @@
   function correctAnswer() {
     state.success++;
     console.log("正解");
+    exportData += '正解\n';  // Add exportData
   }
 
   // 上でチェックし、不正解だった場合
   function incorrectAnswer() {
     console.log("不正解");
+    exportData += '不正解\n';  // Add exportData
   }
 
   // スタートボタンが押された時
@@ -128,10 +134,12 @@
 
   // ゲームが終了した時
   function gameEnd() {
+    downloadCSV();
     changeScene(sceneGame, sceneResult);
     numResult.innerHTML = state.success;
     btnReset.addEventListener("click", init, false);
   }
+
 
   // Timer
   function timerStart() {
@@ -141,6 +149,7 @@
 
   function timerStop() {
     console.log(elapsedTime);
+    exportData+=elapsedTime/1000+"s,"; // Add exportData
     clearInterval(timer);
     startTime = Date.now();
     elapsedTime = 0;
@@ -152,6 +161,26 @@
       measureTime();
     }, 10);
   }
+  
+
+  // Export CSV
+  function downloadCSV(){
+    const filename = "result.csv";
+    const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+    const blob = new Blob([bom, exportData], {type: "text/csv"});
+    if(window.navigator.msSaveBlob){
+      window.navigator.msSaveBlob(blob, filename);
+    }else{
+      const url = (window.URL || window.webkitURL).createObjectURL(blob);
+      const download = document.createElement("a");
+      download.href = url;
+      download.download = filename;
+      download.click();
+      (window.URL || window.webkitURL).revokeObjectURL(url);
+    }
+    console.log("downloaded!");
+  }
+
 
   // スタートボタンが押されたら、ゲームスタートの関数を
   // リセットボタンが押されたら、ゲーム終了後にゲームをリセットする関数を実行するイベントです
