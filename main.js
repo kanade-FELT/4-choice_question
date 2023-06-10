@@ -14,21 +14,34 @@
   // リザルト画面でゲームをリセットしトップへ戻るボタン
   const btnReset = document.getElementById("btnReset");
 
+  // Timer
+  var timer;
+  var startTime;
+  var elapsedTime = 0;
+  var holdTime = 0;
+
   const p1_1 = "'pictures/study_gogaku_man1_english.png' id='1'";
   const p1_2 = "'pictures/study_gogaku_man2_spanish.png'";
   const p1_3 = "'pictures/study_gogaku_man3_french.png'";
   const p1_4 = "'pictures/study_gogaku_man4_chinese.png'";
+  const ans1 = '1';
+
+  const p2_1 = "'pictures/study_gogaku_man1_english.png' id='1'";
+  const p2_2 = "'pictures/study_gogaku_man2_spanish.png'";
+  const p2_3 = "'pictures/study_gogaku_man3_french.png'";
+  const p2_4 = "'pictures/study_gogaku_man4_chinese.png'";
+  const ans2 = '1';
 
   //問題文を格納
   const question = [
     {
-      text: "江戸時代から使われていた言葉はどれ？",
-      choice: [
-        p1_1,
-        p1_2,
-        p1_3,
-        p1_4
-      ],
+      text: "英語の勉強をしているのは誰？",
+      choice: [p1_1, p1_2, p1_3, p1_4],
+      ansewer: '1'
+    },
+    {
+      text: "英語の勉強をしているのは誰？",
+      choice: [p2_1, p2_2, p2_3, p2_4],
       ansewer: '1'
     },
   ];
@@ -50,6 +63,7 @@
     changeScene(sceneResult, sceneTop);
 
     btnStart.addEventListener("click", gameStart, false);
+    timerStart();
   }
 
   // 1.トップ画面　2.ゲーム画面　3.リザルト画面
@@ -61,6 +75,9 @@
 
   // 問題と選択肢をViewに表示し、正解を共通の変数へ代入
   function showQuestion() {
+    // 時間計測開始
+    timerStart();
+
     var str = "";
     question[state.gameCount].choice.forEach(function (value) {
       str += "<img src=" + value + "class='questionChoice'>";
@@ -86,6 +103,9 @@
 
   // 解答が正解か不正解かをチェック
   function checkAnswer(answer) {
+    // 回答時間出力
+    timerStop();
+
     if (answer === state.answer) {
       correctAnswer();
     } else {
@@ -123,6 +143,26 @@
     changeScene(sceneGame, sceneResult);
     numResult.innerHTML = state.success;
     btnReset.addEventListener("click", init, false);
+  }
+
+  // Timer
+  function timerStart() {
+    startTime = Date.now();
+    measureTime();
+  }
+
+  function timerStop() {
+    console.log(elapsedTime);
+    clearInterval(timer);
+    startTime = Date.now();
+    elapsedTime = 0;
+  }
+
+  function measureTime() {
+    timer = setTimeout(function () {
+      elapsedTime = Date.now() - startTime;
+      measureTime();
+    }, 10);
   }
 
   // スタートボタンが押されたら、ゲームスタートの関数を
