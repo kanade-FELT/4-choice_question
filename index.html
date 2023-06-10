@@ -9,23 +9,27 @@
 </head>
 
 <body>
+  <!-- 開始画面 -->
   <div id="sceneTop" class="top screen">
     <h1>英語４択問題</h1>
     <button id="btnStart">開始</button>
   </div>
 
+  <!-- 問題画面 -->
   <div id="sceneGame" class="game screen">
     <h1>問題</h1>
     <p id="textQuestion"></p>
     <ul id="listAnswer"></ul>
   </div>
 
+  <!-- 終了画面 -->
   <div id="sceneResult" class="result screen">
     <h1>お疲れ様でした、テストは終了です。</h1>
     <p>正解数は<span id="numResult"></span>問です。</p>
     <button id="btnReset">Reset</button>
   </div>
 
+  <!-- プログラム -->
   <script src="questions.js"></script>
   <script src="main.js"></script>
 </body>

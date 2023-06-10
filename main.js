@@ -18,7 +18,6 @@
   var timer;
   var startTime;
   var elapsedTime = 0;
-  var holdTime = 0;
 
   // Export Data
   var exportData=new Date+"\n";
@@ -58,6 +57,7 @@
 
     exportData+=question[state.gameCount].text+','; // Add exportData
 
+    // set correct answer
     const q=[];
     for(let i=0; i<question[state.gameCount].choice.length; i++){
       if(i==0){
@@ -75,6 +75,7 @@
       q[rand] = tmp;
     }
 
+    // display questions
     var str = "";
     q.forEach(function (value) {
       str += value;
@@ -99,7 +100,7 @@
 
   // 解答が正解か不正解かをチェック
   function checkAnswer() {
-    // 回答時間出力
+    // 回答時間記録
     timerStop();
 
     if ('correct' === state.answer) {
