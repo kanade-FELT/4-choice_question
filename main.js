@@ -66,6 +66,8 @@
         q.push("<img src='" + question[state.gameCount].choice[i] + "'class='questionChoice'>");
       }
     }
+
+    console.log(q[0]);
     
     // shuffle q
     for(let i=q.length-1; i>=0; i--){
